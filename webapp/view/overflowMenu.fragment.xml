@@ -1,0 +1,16 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+            <Menu itemSelected="onSelectTheme" >
+                <MenuItem text="Change Theme">
+                    <items>
+                        <MenuItem key="base" text="Standard" />
+                        <MenuItem key="sap_ux" text="SAP UX (?)" />
+                        <MenuItem key="sap_platinum" text="SAP Platinum" />                      
+                        <MenuItem key="sap_hcw" text="High Contrast White" />
+                        <MenuItem key="sap_hcb" text="High Contrast Black" />
+                    </items>
+                </MenuItem>
+            </Menu>
+</core:FragmentDefinition>

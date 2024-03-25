@@ -1,0 +1,149 @@
+<mvc:View
+	controllerName="ui5.walkthrough.controller.InvoiceList"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+>	
+
+	<List
+		id				= "invoiceList"
+		headerText		= "{i18n>invoiceListTitle}"
+		itemPress		= ".onRowClick"
+		class			= "sapUiResponsiveMargin"
+		width			= "auto"
+		growing			= "true"
+		growingThreshold= "4"
+		items			="{
+			path : 'invoice>/Invoices',
+			sorter : {
+				path : 'ShipperName',
+				group : true
+			}
+		}"
+		
+	>
+		<headerToolbar>
+			<Toolbar>
+				<Title text="{i18n>invoiceListTitle}" />
+				<ToolbarSpacer />
+				<Button icon="sap-icon://palette" press="onPressOpenOverflowMenu" type="Transparent" />
+				<SearchField
+					width="50%"
+					search=".onFilterInvoices"
+				/>
+			</Toolbar>
+		</headerToolbar>
+		<items>
+			<ObjectListItem
+				type = "Active"
+				title="{invoice>Quantity} x {invoice>ProductName}"
+				number="{
+					parts: [
+						'invoice>ExtendedPrice',
+						'view>/currency'
+					],
+					type: 'sap.ui.model.type.Currency',
+					formatOptions: {
+						showMeasure: true
+					}
+				}"
+				numberUnit="{view>/currency}"
+				numberState="{= ${invoice>ExtendedPrice} > 50 ? 'Error' : 'Success' }"
+			>
+				<firstStatus>
+					<ObjectStatus
+						text="{
+							path: 'invoice>Status',
+							formatter: '.formatter.statusText'
+						}"
+					/>
+				</firstStatus>
+			</ObjectListItem>
+		</items>
+	</List>
+
+
+	 <Table 
+	 		id					= "invoicetable2"
+			headerText 			= "Testtable 2"
+            alternateRowColors	= "true"
+            inset				= "false"
+            autoPopinMode		= "false"
+            popinLayout			= "GridLarge"
+            mode				= "SingleSelectMaster"
+            items				= "{SearchResModel>/value}"
+            updateFinished		= "onUpdateFinished"
+			growing				= "true"
+    		growingThreshold	= "4"
+			itemPress			= ".onRowClick"
+        >
+
+		<columns>
+			<Column 
+                id="tblcoldef1"
+            >
+				<header>
+					<Label id="lblcol1" text="Customer" />
+				</header>
+			</Column>
+			<Column
+                id="tblcoldef3"
+				minScreenWidth="Large"
+				demandPopin="true"
+                popinDisplay="Inline"
+				importance="Low"
+			>
+				<header>
+					<Label  id="lblcol3" text="Product" />
+				</header>
+			</Column>
+
+		</columns>
+		<items>
+			<ColumnListItem 
+				id		="collist" 
+				type	= "Active"
+			>
+				<cells>
+					<Label
+                        id = "celllbl1"
+						text="{SearchResModel>CustomerName}" />
+					<Label
+                        id = "celllbl2"
+                        text="{SearchResModel>ProductName}"/>
+				</cells>
+                
+			</ColumnListItem>
+		</items>
+	</Table>
+
+<!--
+	<Table 
+		id 			= "tbl_2"
+		headerText	= "Table 2"
+		items		= "{SearchResModel>/value}"
+		itemPress	= ".onRowClick"
+		mode		= "SingleSelectMaster"
+	>
+		<columns>
+			<Column>
+				<Text text="Key" />
+			</Column>
+			<Column>
+				<Text text="Value" />
+				</Column>
+		</columns>
+		<items>
+			<ColumnListItem 
+				vAlign="Middle" 
+				type="Active"
+			>
+				<cells>
+					<Text text="{SearchResModel>CustomerName}" />
+					<Text text="{SearchResModel>ProductName}" />
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+-->
+
+</mvc:View>
